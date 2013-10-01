@@ -138,7 +138,29 @@ And(/^I click a webview button $/) do
   @driver.find_element(:css, ".green_button").click
 end
 ```
-
+### Troubleshooting
+If you are still having trouble clicking your web element, you can  use this class I made to iterate through all the windows to find the element and print the window number.
+```ruby
+class Helper
+  def self.find_web_element(css)
+    handles = $driver.window_handles
+    $driver.manage.timeouts.implicit_wait = 5
+    handles.each do |window|
+      $driver.switch_to.window(window)
+      begin
+        el = $driver.find_element(:css,css)
+        if el
+          puts "element found in window #{window}"
+          return el
+        end
+      rescue
+      end
+    end
+    $driver.execute_script("mobile: leaveWebView")
+    $driver.manage.timeouts.implicit_wait = DEFAULT_WAIT
+  end
+end
+```
 <a name="android"></a>Automating hybrid Android apps
 --------------------------
 
