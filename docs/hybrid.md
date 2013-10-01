@@ -139,7 +139,7 @@ And(/^I click a webview button $/) do
 end
 ```
 ### Troubleshooting
-If you are still having trouble clicking your web element, you can  use this class I made to iterate through all the windows to find the element and print the window number.
+If you are still having trouble clicking your web element, you can  use this class I made to iterate through all the windows to find the element and print the window number. Note: In my config I have DEFAULT_WAIT=30, I lower it so it can run through each window faster.
 ```ruby
 class Helper
   def self.find_web_element(css)
